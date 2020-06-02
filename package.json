@@ -1,13 +1,13 @@
 {
   "name": "leap",
   "displayName": "leap",
-  "description": "An improved keyboard interface for web developers",
+  "description": "An ergonomic keymap",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.45.0"
   },
   "categories": [
-    "Other"
+    "Keymaps"
   ],
   "activationEvents": [
     "*"
