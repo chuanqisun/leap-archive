@@ -1,7 +1,11 @@
 {
   "name": "leap",
-  "displayName": "leap",
+  "displayName": "Leap",
   "publisher": "chuanqisun",
+  "author": {
+    "name": "Chuánqí Sun",
+    "email": "git@chuanqisun.com"
+  },
   "description": "An ergonomic keymap",
   "version": "0.0.1",
   "engines": {
