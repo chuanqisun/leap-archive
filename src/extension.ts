@@ -5,6 +5,11 @@ enum InputMode {
   Select = "select",
 }
 
+const lineHighlighter = vscode.window.createTextEditorDecorationType({
+  backgroundColor: new vscode.ThemeColor("editor.hoverHighlightBackground"),
+  isWholeLine: true,
+});
+
 export function activate(context: vscode.ExtensionContext) {
   context.workspaceState.update("leapMode", InputMode.Edit);
   const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
@@ -18,10 +23,35 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.executeCommand("setContext", "leap.mode", newMode);
     context.workspaceState.update("leapMode", newMode);
     statusBarItem.text = getStatusBarText(newMode);
+
+    // first and last update of highlighter
+    if (newMode === InputMode.Edit) {
+      vscode.window.activeTextEditor?.setDecorations(lineHighlighter, []);
+    } else {
+      const position = vscode.window.activeTextEditor?.selection.active;
+      if (position) {
+        vscode.window.activeTextEditor?.setDecorations(lineHighlighter, [new vscode.Range(position, position)]);
+      }
+    }
+  });
+
+  /** update current line highlight */
+  const updateHighLight = vscode.window.onDidChangeTextEditorSelection((e) => {
+    const currentMode = context.workspaceState.get<InputMode>("leapMode");
+    if (currentMode === InputMode.Select) {
+      console.log("select", e);
+
+      const ranges = e.selections.map((selection) => new vscode.Range(selection.start, selection.end));
+      e.textEditor.setDecorations(lineHighlighter, ranges);
+    } else {
+      console.log("edit", e);
+      e.textEditor.setDecorations(lineHighlighter, []);
+    }
   });
 
   context.subscriptions.push(toggleCommand);
   context.subscriptions.push(statusBarItem);
+  context.subscriptions.push(updateHighLight);
 }
 
 // this method is called when your extension is deactivated
