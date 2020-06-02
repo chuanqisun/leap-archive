@@ -252,22 +252,22 @@
         "when": "inQuickOpen && leap.mode == 'select'"
       },
       {
-        "key": "i",
+        "key": "ctrl+i",
         "command": "list.focusUp",
         "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
       },
       {
-        "key": "k",
+        "key": "ctrl+k",
         "command": "list.focusDown",
         "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
       },
       {
-        "key": "l",
+        "key": "ctrl+l",
         "command": "list.expand",
         "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
       },
       {
-        "key": "j",
+        "key": "ctrl+j",
         "command": "list.collapse",
         "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
       },
