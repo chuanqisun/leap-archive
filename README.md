@@ -4,12 +4,18 @@
 
 Use `Caps Lock` to toggle "Select"/"Edit" mode. The following keybindings are active for "Select" mode.
 
+_This is a temporary documentation. An official version is currently being worked on._
+
 ```json
     "keybindings": [
       {
+        "key": "capslock",
+        "command": "leap.toggleMode"
+      },
+      {
         "key": "space",
         "command": "editor.action.smartSelect.expand",
-        "when": "editorTextFocus"
+        "when": "editorTextFocus && leap.mode == 'select'"
       },
       {
         "key": "ctrl+space",
@@ -195,6 +201,26 @@ Use `Caps Lock` to toggle "Select"/"Edit" mode. The following keybindings are ac
         "key": "j",
         "command": "list.collapse",
         "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "backspace",
+        "command": "deleteWordPartLeft",
+        "when": "textInputFocus && !editorReadonly && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+backspace",
+        "command": "deleteLeft",
+        "when": "textInputFocus && !editorReadonly && leap.mode == 'select'"
+      },
+      {
+        "key": "alt+backspace",
+        "command": "deleteWordPartRight",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+alt+backspace",
+        "command": "deleteRight",
+        "when": "textInputFocus && !editorReadonly && leap.mode == 'select'"
       }
 ```
 
