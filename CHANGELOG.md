@@ -1,9 +1,7 @@
 # Change Log
 
-All notable changes to the "leap" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+This change log follows the semantics of [Keep a Changelog](http://keepachangelog.com/) guide.
 
 ## 0.0.1
 
-- Initial release. Experiemental use only.
+- Pre-release.

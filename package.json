@@ -42,53 +42,8 @@
         "command": "leap.toggleMode"
       },
       {
-        "key": "space",
-        "command": "editor.action.smartSelect.expand",
-        "when": "editorTextFocus && leap.mode == 'select'"
-      },
-      {
-        "key": "ctrl+space",
-        "command": "editor.action.smartSelect.shrink",
-        "when": "editorTextFocus && leap.mode == 'select'"
-      },
-      {
         "key": "i",
         "command": "cursorUp",
-        "when": "textInputFocus && leap.mode == 'select'"
-      },
-      {
-        "key": "l",
-        "command": "cursorWordPartRight",
-        "when": "textInputFocus && leap.mode == 'select'"
-      },
-      {
-        "key": "k",
-        "command": "cursorDown",
-        "when": "textInputFocus && leap.mode == 'select'"
-      },
-      {
-        "key": "j",
-        "command": "cursorWordPartLeft",
-        "when": "textInputFocus && leap.mode == 'select'"
-      },
-      {
-        "key": "u",
-        "command": "cursorHome",
-        "when": "textInputFocus && leap.mode == 'select'"
-      },
-      {
-        "key": "o",
-        "command": "cursorEnd",
-        "when": "textInputFocus && leap.mode == 'select'"
-      },
-      {
-        "key": "[",
-        "command": "cursorPageUp",
-        "when": "textInputFocus && leap.mode == 'select'"
-      },
-      {
-        "key": "]",
-        "command": "cursorPageDown",
         "when": "textInputFocus && leap.mode == 'select'"
       },
       {
@@ -97,8 +52,8 @@
         "when": "textInputFocus && leap.mode == 'select'"
       },
       {
-        "key": "shift+l",
-        "command": "cursorWordPartRightSelect",
+        "key": "k",
+        "command": "cursorDown",
         "when": "textInputFocus && leap.mode == 'select'"
       },
       {
@@ -107,48 +62,8 @@
         "when": "textInputFocus && leap.mode == 'select'"
       },
       {
-        "key": "shift+j",
-        "command": "cursorWordPartLeftSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
-      },
-      {
-        "key": "shift+u",
-        "command": "cursorHomeSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
-      },
-      {
-        "key": "shift+o",
-        "command": "cursorEndSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
-      },
-      {
-        "key": "shift+[",
-        "command": "cursorPageUpSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
-      },
-      {
-        "key": "shift+]",
-        "command": "cursorPageDownSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
-      },
-      {
         "key": "ctrl+i",
         "command": "cursorUp",
-        "when": "textInputFocus && leap.mode == 'select'"
-      },
-      {
-        "key": "ctrl+l",
-        "command": "cursorRight",
-        "when": "textInputFocus && leap.mode == 'select'"
-      },
-      {
-        "key": "ctrl+k",
-        "command": "cursorDown",
-        "when": "textInputFocus && leap.mode == 'select'"
-      },
-      {
-        "key": "ctrl+j",
-        "command": "cursorLeft",
         "when": "textInputFocus && leap.mode == 'select'"
       },
       {
@@ -157,8 +72,8 @@
         "when": "textInputFocus && leap.mode == 'select'"
       },
       {
-        "key": "ctrl+shift+l",
-        "command": "cursorRightSelect",
+        "key": "ctrl+k",
+        "command": "cursorDown",
         "when": "textInputFocus && leap.mode == 'select'"
       },
       {
@@ -167,9 +82,134 @@
         "when": "textInputFocus && leap.mode == 'select'"
       },
       {
-        "key": "ctrl+shift+j",
+        "key": "[",
+        "command": "leap.cursorParagraphUp",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "shift+[",
+        "command": "leap.cursorParagraphUpSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "]",
+        "command": "leap.cursorParagraphDown",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "shift+]",
+        "command": "leap.cursorParagraphDownSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+[",
+        "command": "cursorPageUp",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+shift+[",
+        "command": "cursorPageUpSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+]",
+        "command": "cursorPageDown",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+shift+]",
+        "command": "cursorPageDownSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "j",
+        "command": "cursorLeft",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "shift+j",
         "command": "cursorLeftSelect",
         "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "l",
+        "command": "cursorRight",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "shift+l",
+        "command": "cursorRightSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+j",
+        "command": "cursorWordLeft",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+shift+j",
+        "command": "cursorWordLeftSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+l",
+        "command": "cursorWordRight",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+shift+l",
+        "command": "cursorWordRightSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "u",
+        "command": "cursorHome",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+u",
+        "command": "cursorLineStart",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "shift+u",
+        "command": "cursorHomeSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+shift+u",
+        "command": "cursorLineStartSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "o",
+        "command": "cursorEnd",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+o",
+        "command": "cursorLineEnd",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "shift+o",
+        "command": "cursorEndSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+shift+o",
+        "command": "cursorLineEndSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "shift+m",
+        "command": "editor.action.smartSelect.shrink",
+        "when": "editorTextFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "shift+,",
+        "command": "editor.action.smartSelect.expand",
+        "when": "editorTextFocus && leap.mode == 'select'"
       },
       {
         "key": "alt+i",
@@ -194,12 +234,12 @@
       {
         "key": "i",
         "command": "selectPrevSuggestion",
-        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus && leap.mode == 'select'"
       },
       {
         "key": "k",
         "command": "selectNextSuggestion",
-        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus && leap.mode == 'select'"
       },
       {
         "key": "i",
@@ -232,23 +272,13 @@
         "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
       },
       {
-        "key": "backspace",
-        "command": "deleteWordPartLeft",
-        "when": "textInputFocus && !editorReadonly && leap.mode == 'select'"
-      },
-      {
-        "key": "ctrl+backspace",
-        "command": "deleteLeft",
-        "when": "textInputFocus && !editorReadonly && leap.mode == 'select'"
-      },
-      {
         "key": "alt+backspace",
-        "command": "deleteWordPartRight",
+        "command": "deleteRight",
         "when": "textInputFocus && leap.mode == 'select'"
       },
       {
         "key": "ctrl+alt+backspace",
-        "command": "deleteRight",
+        "command": "deleteWordRight",
         "when": "textInputFocus && !editorReadonly && leap.mode == 'select'"
       }
     ]

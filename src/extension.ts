@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { paragraph } from "./utils/paragraph";
 
 enum InputMode {
   Edit = "edit",
@@ -36,6 +37,16 @@ export function activate(context: vscode.ExtensionContext) {
     }
   });
 
+  /** handle paragraph movement */
+  const cursorParagraphUp = vscode.commands.registerTextEditorCommand("leap.cursorParagraphUp", (editor) => paragraph.cursorParagraphUp(editor));
+  const cursorParagraphUpSelect = vscode.commands.registerTextEditorCommand("leap.cursorParagraphUpSelect", (editor) =>
+    paragraph.cursorParagraphUpSelect(editor)
+  );
+  const cursorParagraphDown = vscode.commands.registerTextEditorCommand("leap.cursorParagraphDown", (editor) => paragraph.cursorParagraphDown(editor));
+  const cursorParagraphDownSelect = vscode.commands.registerTextEditorCommand("leap.cursorParagraphDownSelect", (editor) =>
+    paragraph.cursorParagraphDownSelect(editor)
+  );
+
   /** update current line highlight */
   const updateHighLight = vscode.window.onDidChangeTextEditorSelection((e) => {
     const currentMode = context.workspaceState.get<InputMode>("leapMode");
@@ -47,9 +58,15 @@ export function activate(context: vscode.ExtensionContext) {
     }
   });
 
-  context.subscriptions.push(toggleCommand);
-  context.subscriptions.push(statusBarItem);
-  context.subscriptions.push(updateHighLight);
+  context.subscriptions.push(
+    toggleCommand,
+    statusBarItem,
+    updateHighLight,
+    cursorParagraphDown,
+    cursorParagraphUp,
+    cursorParagraphDownSelect,
+    cursorParagraphUpSelect
+  );
 }
 
 // this method is called when your extension is deactivated
