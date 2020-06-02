@@ -1,6 +1,7 @@
 {
   "name": "leap",
   "displayName": "leap",
+  "publisher": "chuanqisun",
   "description": "An ergonomic keymap",
   "version": "0.0.1",
   "engines": {

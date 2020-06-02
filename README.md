@@ -1,6 +1,4 @@
-# leap README
-
-This is the README for your extension "leap". After writing up a brief description, we recommend including the following sections.
+# Leap
 
 ## Features
 
