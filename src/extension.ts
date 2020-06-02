@@ -39,12 +39,9 @@ export function activate(context: vscode.ExtensionContext) {
   const updateHighLight = vscode.window.onDidChangeTextEditorSelection((e) => {
     const currentMode = context.workspaceState.get<InputMode>("leapMode");
     if (currentMode === InputMode.Select) {
-      console.log("select", e);
-
       const ranges = e.selections.map((selection) => new vscode.Range(selection.start, selection.end));
       e.textEditor.setDecorations(lineHighlighter, ranges);
     } else {
-      console.log("edit", e);
       e.textEditor.setDecorations(lineHighlighter, []);
     }
   });
