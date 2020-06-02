@@ -14,7 +14,7 @@ _This is a temporary documentation. An official version is currently being worke
     - `Shift` to select
     - `Ctrl` to accelerate
     - `Alt` to manipulate
-  - All movement without arrow keys
+  - All movement without mouse or arrow keys
     - Including explorer and menu navigation
     - Except for OS native input boxes and menus
 - High compatibility with VS Code built-in behaviors

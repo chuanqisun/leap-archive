@@ -280,6 +280,26 @@
         "key": "ctrl+alt+backspace",
         "command": "deleteWordRight",
         "when": "textInputFocus && !editorReadonly && leap.mode == 'select'"
+      },
+      {
+        "key": "alt+1",
+        "command": "workbench.action.terminal.focusAtIndex1",
+        "when": "terminalFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "alt+2",
+        "command": "workbench.action.terminal.focusAtIndex2",
+        "when": "terminalFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "alt+3",
+        "command": "workbench.action.terminal.focusAtIndex3",
+        "when": "terminalFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "alt+4",
+        "command": "workbench.action.terminal.focusAtIndex4",
+        "when": "terminalFocus && leap.mode == 'select'"
       }
     ]
   },
