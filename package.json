@@ -10,14 +10,53 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:leap.helloWorld"
+		"*"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"configuration": {
+			"title": "Leap",
+			"properties": {
+				"leap.mode": {
+					"enum": [
+						"edit",
+						"select"
+					],
+					"default": "edit",
+					"description": "The current mode of the leap keybindings"
+				}
+			}
+		},
 		"commands": [
 			{
-				"command": "leap.helloWorld",
-				"title": "Hello World"
+				"command": "leap.toggleMode",
+				"title": "Leap: toggle mode"
+			}
+		],
+		"keybindings": [
+			{
+				"key": "capslock",
+				"command": "leap.toggleMode"
+			},
+			{
+				"key": "i",
+				"command": "cursorUp",
+				"when": "textInputFocus && leap.mode == 'select'"
+			},
+			{
+				"key": "l",
+				"command": "cursorRight",
+				"when": "textInputFocus && leap.mode == 'select'"
+			},
+			{
+				"key": "k",
+				"command": "cursorDown",
+				"when": "textInputFocus && leap.mode == 'select'"
+			},
+			{
+				"key": "j",
+				"command": "cursorLeft",
+				"when": "textInputFocus && leap.mode == 'select'"
 			}
 		]
 	},
