@@ -11,6 +11,10 @@
   "engines": {
     "vscode": "^1.45.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chuanqisun/leap.git"
+  },
   "categories": [
     "Keymaps"
   ],
