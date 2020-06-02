@@ -1,84 +1,248 @@
 {
-	"name": "leap",
-	"displayName": "leap",
-	"description": "An improved keyboard interface for web developers",
-	"version": "0.0.1",
-	"engines": {
-		"vscode": "^1.45.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"*"
-	],
-	"main": "./out/extension.js",
-	"contributes": {
-		"configuration": {
-			"title": "Leap",
-			"properties": {
-				"leap.mode": {
-					"enum": [
-						"edit",
-						"select"
-					],
-					"default": "edit",
-					"description": "The current mode of the leap keybindings"
-				}
-			}
-		},
-		"commands": [
-			{
-				"command": "leap.toggleMode",
-				"title": "Leap: toggle mode"
-			}
-		],
-		"keybindings": [
-			{
-				"key": "capslock",
-				"command": "leap.toggleMode"
-			},
-			{
-				"key": "i",
-				"command": "cursorUp",
-				"when": "textInputFocus && leap.mode == 'select'"
-			},
-			{
-				"key": "l",
-				"command": "cursorRight",
-				"when": "textInputFocus && leap.mode == 'select'"
-			},
-			{
-				"key": "k",
-				"command": "cursorDown",
-				"when": "textInputFocus && leap.mode == 'select'"
-			},
-			{
-				"key": "j",
-				"command": "cursorLeft",
-				"when": "textInputFocus && leap.mode == 'select'"
-			}
-		]
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"lint": "eslint src --ext ts",
-		"watch": "tsc -watch -p ./",
-		"pretest": "npm run compile && npm run lint",
-		"test": "node ./out/test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/vscode": "^1.45.0",
-		"@types/glob": "^7.1.1",
-		"@types/mocha": "^7.0.2",
-		"@types/node": "^13.11.0",
-		"eslint": "^6.8.0",
-		"@typescript-eslint/parser": "^2.30.0",
-		"@typescript-eslint/eslint-plugin": "^2.30.0",
-		"glob": "^7.1.6",
-		"mocha": "^7.1.2",
-		"typescript": "^3.8.3",
-		"vscode-test": "^1.3.0"
-	}
+  "name": "leap",
+  "displayName": "leap",
+  "description": "An improved keyboard interface for web developers",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.45.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Leap",
+      "properties": {
+        "leap.mode": {
+          "enum": [
+            "edit",
+            "select"
+          ],
+          "default": "edit",
+          "description": "The current mode of the leap keybindings"
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "key": "capslock",
+        "command": "leap.toggleMode"
+      },
+      {
+        "key": "space",
+        "command": "editor.action.smartSelect.expand",
+        "when": "editorTextFocus"
+      },
+      {
+        "key": "ctrl+space",
+        "command": "editor.action.smartSelect.shrink",
+        "when": "editorTextFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "i",
+        "command": "cursorUp",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "l",
+        "command": "cursorWordPartRight",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "k",
+        "command": "cursorDown",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "j",
+        "command": "cursorWordPartLeft",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "u",
+        "command": "cursorHome",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "o",
+        "command": "cursorEnd",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "[",
+        "command": "cursorPageUp",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "]",
+        "command": "cursorPageDown",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "shift+i",
+        "command": "cursorUpSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "shift+l",
+        "command": "cursorWordPartRightSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "shift+k",
+        "command": "cursorDownSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "shift+j",
+        "command": "cursorWordPartLeftSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "shift+u",
+        "command": "cursorHomeSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "shift+o",
+        "command": "cursorEndSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "shift+[",
+        "command": "cursorPageUpSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "shift+]",
+        "command": "cursorPageDownSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+i",
+        "command": "cursorUp",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+l",
+        "command": "cursorRight",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+k",
+        "command": "cursorDown",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+j",
+        "command": "cursorLeft",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+shift+i",
+        "command": "cursorUpSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+shift+l",
+        "command": "cursorRightSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+shift+k",
+        "command": "cursorDownSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+shift+j",
+        "command": "cursorLeftSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "alt+i",
+        "command": "editor.action.moveLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly && leap.mode == 'select'"
+      },
+      {
+        "key": "alt+k",
+        "command": "editor.action.moveLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly && leap.mode == 'select'"
+      },
+      {
+        "key": "shift+alt+i",
+        "command": "editor.action.copyLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly && leap.mode == 'select'"
+      },
+      {
+        "key": "shift+alt+k",
+        "command": "editor.action.copyLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly && leap.mode == 'select'"
+      },
+      {
+        "key": "i",
+        "command": "selectPrevSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+      },
+      {
+        "key": "k",
+        "command": "selectNextSuggestion",
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+      },
+      {
+        "key": "i",
+        "command": "workbench.action.quickOpenNavigatePrevious",
+        "when": "inQuickOpen && leap.mode == 'select'"
+      },
+      {
+        "key": "k",
+        "command": "workbench.action.quickOpenNavigateNext",
+        "when": "inQuickOpen && leap.mode == 'select'"
+      },
+      {
+        "key": "i",
+        "command": "list.focusUp",
+        "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "k",
+        "command": "list.focusDown",
+        "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "l",
+        "command": "list.expand",
+        "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "j",
+        "command": "list.collapse",
+        "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "lint": "eslint src --ext ts",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.45.0",
+    "@types/glob": "^7.1.1",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.11.0",
+    "eslint": "^6.8.0",
+    "@typescript-eslint/parser": "^2.30.0",
+    "@typescript-eslint/eslint-plugin": "^2.30.0",
+    "glob": "^7.1.6",
+    "mocha": "^7.1.2",
+    "typescript": "^3.8.3",
+    "vscode-test": "^1.3.0"
+  }
 }
