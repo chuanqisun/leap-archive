@@ -28,9 +28,10 @@ export function activate(context: vscode.ExtensionContext) {
     if (newMode === InputMode.Edit) {
       vscode.window.activeTextEditor?.setDecorations(lineHighlighter, []);
     } else {
-      const position = vscode.window.activeTextEditor?.selection.active;
-      if (position) {
-        vscode.window.activeTextEditor?.setDecorations(lineHighlighter, [new vscode.Range(position, position)]);
+      const selections = vscode.window.activeTextEditor?.selections;
+      if (selections?.length) {
+        const ranges = selections.map((selection) => new vscode.Range(selection.start, selection.end));
+        vscode.window.activeTextEditor?.setDecorations(lineHighlighter, ranges);
       }
     }
   });
