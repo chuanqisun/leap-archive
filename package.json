@@ -65,6 +65,14 @@
         "command": "leap.toggleMode"
       },
       {
+        "key": "ctrl+shift+insert",
+        "command": "leap.enterSelectMode"
+      },
+      {
+        "key": "ctrl+shift+delete",
+        "command": "leap.exitSelectMode"
+      },
+      {
         "key": "i",
         "command": "cursorUp",
         "when": "textInputFocus && leap.mode == 'select'"

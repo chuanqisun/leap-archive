@@ -27,6 +27,12 @@ _This is a temporary documentation. An official version is currently being worke
 
 - `h`, `j`, `k`, `l` navigation. Leap uses `j`, `i`, `k`, `l` for better ergonomics and learning curve.
 
+## FAQ
+
+- What can I do if the mode gets out of sync when I toggle capslock from outside of vscode
+  1. Use `Ctrl`+`Caps Lock` or `Shift`+`Caps Lock` to update the keyboard state without changing the modes.
+  2. (Work in progress) Use an external companion program to completely disable `Caps Lock` and manage the modes.
+
 ## Credits
 
 - Paragraph travel logic is based on [Block Travel](https://github.com/sashaweiss/vscode_block_travel)
