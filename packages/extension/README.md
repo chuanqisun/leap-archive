@@ -2,7 +2,7 @@
 
 ## Features
 
-Use `Caps Lock` to toggle "Select"/"Edit" mode. The following keybindings are active for "Select" mode.
+Use `Caps Lock` to toggle Leap Mode on/off. The following keybindings are active when it's on.
 
 ```
 ================
