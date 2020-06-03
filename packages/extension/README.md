@@ -5,9 +5,9 @@
 Use `Caps Lock` to toggle Leap Mode on/off. The following keybindings are active when it's on.
 
 ```
-================
+==========
 Base layer
-================
+==========
 i => Up
 k => Down
 j => Left
@@ -19,9 +19,9 @@ o => End
 ] => PageDn
 
 
-================
-Accerated layer
-================
+=================
+Accelerated layer
+=================
 ctrl+i => Paragraph up
 ctrl+k => Paragraph down
 ctrl+j => Word left
