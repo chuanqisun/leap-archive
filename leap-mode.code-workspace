@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "packages/autohotkey"
+		},
+		{
+			"path": "packages/design"
 		}
 	],
 	"settings": {}
