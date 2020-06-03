@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "packages\\autohotkey"
+		},
+		{
+			"path": "packages\\extension"
+		}
+	],
+	"settings": {}
+}
