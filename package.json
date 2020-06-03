@@ -12,7 +12,7 @@
     "theme": "dark"
   },
   "description": "An ergonomic keymap",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "engines": {
     "vscode": "^1.45.0"
   },
