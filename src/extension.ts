@@ -20,21 +20,17 @@ export function activate(context: vscode.ExtensionContext) {
   /** mode toggle command */
   const toggleCommand = vscode.commands.registerCommand("leap.toggleMode", () => {
     const currentMode = context.workspaceState.get<InputMode>("leapMode");
-    const newMode = currentMode === InputMode.Edit ? InputMode.Select : InputMode.Edit;
-    vscode.commands.executeCommand("setContext", "leap.mode", newMode);
-    context.workspaceState.update("leapMode", newMode);
-    statusBarItem.text = getStatusBarText(newMode);
-
-    // first and last update of highlighter
-    if (newMode === InputMode.Edit) {
-      vscode.window.activeTextEditor?.setDecorations(lineHighlighter, []);
+    if (currentMode === InputMode.Edit) {
+      turnOnSelectMode(context, statusBarItem);
     } else {
-      const selections = vscode.window.activeTextEditor?.selections;
-      if (selections?.length) {
-        const ranges = selections.map((selection) => new vscode.Range(selection.start, selection.end));
-        vscode.window.activeTextEditor?.setDecorations(lineHighlighter, ranges);
-      }
+      turnOffSelectMode(context, statusBarItem);
     }
+  });
+  const enterSelectModeCommand = vscode.commands.registerCommand("leap.enterSelectMode", () => {
+    turnOnSelectMode(context, statusBarItem);
+  });
+  const exitSelectModeCommand = vscode.commands.registerCommand("leap.exitSelectMode", () => {
+    turnOffSelectMode(context, statusBarItem);
   });
 
   /** handle paragraph movement */
@@ -60,6 +56,8 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     toggleCommand,
+    enterSelectModeCommand,
+    exitSelectModeCommand,
     statusBarItem,
     updateHighLight,
     cursorParagraphDown,
@@ -89,4 +87,32 @@ function addMacroCommand(context: vscode.ExtensionContext, inputCommand: string,
   const command = vscode.commands.registerCommand(inputCommand, () => outputCommands.forEach((command) => vscode.commands.executeCommand(command)));
 
   context.subscriptions.push(command);
+}
+
+/**
+ * Turn on leap mode
+ */
+function turnOnSelectMode(context: vscode.ExtensionContext, statusBarItem: vscode.StatusBarItem) {
+  const newMode = InputMode.Select;
+  vscode.commands.executeCommand("setContext", "leap.mode", newMode);
+  context.workspaceState.update("leapMode", newMode);
+  statusBarItem.text = getStatusBarText(newMode);
+
+  const selections = vscode.window.activeTextEditor?.selections;
+  if (selections?.length) {
+    const ranges = selections.map((selection) => new vscode.Range(selection.start, selection.end));
+    vscode.window.activeTextEditor?.setDecorations(lineHighlighter, ranges);
+  }
+}
+
+/**
+ * Turn off leap mode
+ */
+function turnOffSelectMode(context: vscode.ExtensionContext, statusBarItem: vscode.StatusBarItem) {
+  const newMode = InputMode.Edit;
+  vscode.commands.executeCommand("setContext", "leap.mode", newMode);
+  context.workspaceState.update("leapMode", newMode);
+  statusBarItem.text = getStatusBarText(newMode);
+
+  vscode.window.activeTextEditor?.setDecorations(lineHighlighter, []);
 }

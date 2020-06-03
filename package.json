@@ -41,6 +41,24 @@
         }
       }
     },
+    "commands": [
+      {
+        "command": "leap.toggleMode",
+        "title": "Toggle Edit/Select",
+        "description": "Toggle between Edit and Select mode",
+        "category": "Leap"
+      },
+      {
+        "command": "leap.enterSelectMode",
+        "title": "Enter Select mode",
+        "category": "Leap"
+      },
+      {
+        "command": "leap.exitSelectMode",
+        "title": "Exit Select mode",
+        "category": "Leap"
+      }
+    ],
     "keybindings": [
       {
         "key": "capslock",
