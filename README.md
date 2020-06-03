@@ -1,10 +1,6 @@
 # Leap Mode
 A better keyboard interface for web developers
 
-## [Design](packages/design)
-
-Art work and illustrations
-
 ## [VS Code Extension](packages/extension)
 
 Leap Mode mapping implemented as a Viscual Studio Code extension
@@ -13,4 +9,6 @@ Leap Mode mapping implemented as a Viscual Studio Code extension
 
 Leap Mode mapping implemented as a Windows keymap
 
+## [Design](packages/design)
 
+Art work and illustrations
