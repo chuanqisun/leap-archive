@@ -4,6 +4,35 @@
 
 Use `Caps Lock` to toggle "Select"/"Edit" mode. The following keybindings are active for "Select" mode.
 
+```
+================
+Base layer
+================
+i => Up
+k => Down
+j => Left
+l => Right
+
+u => Home
+o => End
+[ => PageUp
+] => PageDn
+
+
+================
+Accerated layer
+================
+ctrl+i => Paragraph up
+ctrl+k => Paragraph down
+ctrl+j => Word left
+ctrl+l => Word right
+
+ctrl+u => Line start
+ctrl+o => Line end
+ctrl+[ => Page top
+ctrl+] => Page bottom
+```
+
 _This is a temporary documentation. An official version is currently being worked on._
 
 ## Design Philosophy

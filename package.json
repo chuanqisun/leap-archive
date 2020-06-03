@@ -158,7 +158,17 @@
         "when": "textInputFocus && leap.mode == 'select'"
       },
       {
+        "key": "ctrl+pageup",
+        "command": "cursorTop",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
         "key": "ctrl+shift+[",
+        "command": "cursorTopSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+shift+pageup",
         "command": "cursorTopSelect",
         "when": "textInputFocus && leap.mode == 'select'"
       },
@@ -168,7 +178,17 @@
         "when": "textInputFocus && leap.mode == 'select'"
       },
       {
+        "key": "ctrl+pagedown",
+        "command": "cursorBottom",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
         "key": "ctrl+shift+]",
+        "command": "cursorBottomSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+shift+pagedown",
         "command": "cursorBottomSelect",
         "when": "textInputFocus && leap.mode == 'select'"
       },
@@ -223,12 +243,27 @@
         "when": "textInputFocus && leap.mode == 'select'"
       },
       {
+        "key": "ctrl+home",
+        "command": "cursorLineStart",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
         "key": "shift+u",
         "command": "cursorHomeSelect",
         "when": "textInputFocus && leap.mode == 'select'"
       },
       {
+        "key": "shift+home",
+        "command": "cursorHomeSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
         "key": "ctrl+shift+u",
+        "command": "cursorLineStartSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+shift+home",
         "command": "cursorLineStartSelect",
         "when": "textInputFocus && leap.mode == 'select'"
       },
@@ -243,12 +278,27 @@
         "when": "textInputFocus && leap.mode == 'select'"
       },
       {
+        "key": "ctrl+end",
+        "command": "cursorLineEnd",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
         "key": "shift+o",
         "command": "cursorEndSelect",
         "when": "textInputFocus && leap.mode == 'select'"
       },
       {
+        "key": "shift+end",
+        "command": "cursorEndSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
         "key": "ctrl+shift+o",
+        "command": "cursorLineEndSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+shift+end",
         "command": "cursorLineEndSelect",
         "when": "textInputFocus && leap.mode == 'select'"
       },
