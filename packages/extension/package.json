@@ -8,7 +8,7 @@
   },
   "icon": "assets/leap-logo-4x.png",
   "galleryBanner": {
-    "color": "#5FF9D4",
+    "color": "#212121",
     "theme": "dark"
   },
   "description": "An ergonomic keymap",
