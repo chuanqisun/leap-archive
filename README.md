@@ -7,7 +7,7 @@ Leap Mode mapping implemented as a Viscual Studio Code extension
 
 ## [AutoHotKey Script](packages/autohotkey)
 
-Leap Mode mapping implemented as a Windows keymap
+Leap Mode mapping implemented as a Windows keymap (using AutoHotKey). The keymap is fully compatible with the VS Code Extension.
 
 ## [Design](packages/design)
 
