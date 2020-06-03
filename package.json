@@ -1,6 +1,6 @@
 {
-  "name": "leap",
-  "displayName": "Leap",
+  "name": "leapmode",
+  "displayName": "Leap Mode",
   "publisher": "chuanqisun",
   "author": {
     "name": "Chuánqí Sun",
@@ -29,398 +29,417 @@
   "main": "./out/extension.js",
   "contributes": {
     "configuration": {
-      "title": "Leap",
+      "title": "Leap Mode",
       "properties": {
-        "leap.mode": {
+        "leapMode.state": {
           "enum": [
-            "edit",
-            "select"
+            "off",
+            "on"
           ],
-          "default": "edit",
-          "description": "The current mode of the leap keybindings"
+          "default": "off",
+          "description": "The current state of the leap mode keybindings"
         }
       }
     },
     "commands": [
       {
-        "command": "leap.toggleMode",
-        "title": "Toggle Edit/Select",
-        "description": "Toggle between Edit and Select mode",
-        "category": "Leap"
+        "command": "leapMode.toggle",
+        "title": "Toggle on/off",
+        "category": "Leap Mode"
       },
       {
-        "command": "leap.enterSelectMode",
-        "title": "Enter Select mode",
-        "category": "Leap"
+        "command": "leapMode.turnOn",
+        "title": "Turn on",
+        "category": "Leap Mode"
       },
       {
-        "command": "leap.exitSelectMode",
-        "title": "Exit Select mode",
-        "category": "Leap"
+        "command": "leapMode.turnOff",
+        "title": "Turn off",
+        "category": "Leap Mode"
+      },
+      {
+        "command": "leapMode.cursorParagraphUp",
+        "title": "Move cursor up by one paragraph",
+        "category": "Leap Mode"
+      },
+      {
+        "command": "leapMode.cursorParagraphUpSelect",
+        "title": "Move cursor up by one paragraph while selecting",
+        "category": "Leap Mode"
+      },
+      {
+        "command": "leapMode.cursorParagraphUp",
+        "title": "Move cursor down by one paragraph",
+        "category": "Leap Mode"
+      },
+      {
+        "command": "leapMode.cursorParagraphUpSelect",
+        "title": "Move cursor down by one paragraph while selecting",
+        "category": "Leap Mode"
       }
     ],
     "keybindings": [
       {
         "key": "capslock",
-        "command": "leap.toggleMode"
+        "command": "leapMode.toggle"
       },
       {
         "key": "ctrl+shift+insert",
-        "command": "leap.enterSelectMode"
+        "command": "leapMode.turnOn"
       },
       {
         "key": "ctrl+shift+delete",
-        "command": "leap.exitSelectMode"
+        "command": "leapMode.turnOff"
       },
       {
         "key": "i",
         "command": "cursorUp",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "shift+i",
         "command": "cursorUpSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "k",
         "command": "cursorDown",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "shift+k",
         "command": "cursorDownSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+i",
-        "command": "leap.cursorParagraphUp",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "command": "leapMode.cursorParagraphUp",
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+shift+i",
-        "command": "leap.cursorParagraphUpSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "command": "leapMode.cursorParagraphUpSelect",
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+up",
-        "command": "leap.cursorParagraphUp",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "command": "leapMode.cursorParagraphUp",
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+shift+up",
-        "command": "leap.cursorParagraphUpSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "command": "leapMode.cursorParagraphUpSelect",
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+k",
-        "command": "leap.cursorParagraphDown",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "command": "leapMode.cursorParagraphDown",
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+shift+k",
-        "command": "leap.cursorParagraphDownSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "command": "leapMode.cursorParagraphDownSelect",
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+down",
-        "command": "leap.cursorParagraphDown",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "command": "leapMode.cursorParagraphDown",
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+shift+down",
-        "command": "leap.cursorParagraphDownSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "command": "leapMode.cursorParagraphDownSelect",
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "[",
         "command": "cursorPageUp",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "shift+[",
         "command": "cursorPageUpSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "]",
         "command": "cursorPageDown",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "shift+]",
         "command": "cursorPageDownSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+[",
         "command": "cursorTop",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+pageup",
         "command": "cursorTop",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+shift+[",
         "command": "cursorTopSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+shift+pageup",
         "command": "cursorTopSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+]",
         "command": "cursorBottom",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+pagedown",
         "command": "cursorBottom",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+shift+]",
         "command": "cursorBottomSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+shift+pagedown",
         "command": "cursorBottomSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "j",
         "command": "cursorLeft",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "shift+j",
         "command": "cursorLeftSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "l",
         "command": "cursorRight",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "shift+l",
         "command": "cursorRightSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+j",
         "command": "cursorWordLeft",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+shift+j",
         "command": "cursorWordLeftSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+l",
         "command": "cursorWordRight",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+shift+l",
         "command": "cursorWordRightSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "u",
         "command": "cursorHome",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+u",
         "command": "cursorLineStart",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+home",
         "command": "cursorLineStart",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "shift+u",
         "command": "cursorHomeSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "shift+home",
         "command": "cursorHomeSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+shift+u",
         "command": "cursorLineStartSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+shift+home",
         "command": "cursorLineStartSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "o",
         "command": "cursorEnd",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+o",
         "command": "cursorLineEnd",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+end",
         "command": "cursorLineEnd",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "shift+o",
         "command": "cursorEndSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "shift+end",
         "command": "cursorEndSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+shift+o",
         "command": "cursorLineEndSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+shift+end",
         "command": "cursorLineEndSelect",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "shift+alt+j",
         "command": "editor.action.smartSelect.shrink",
-        "when": "editorTextFocus && leap.mode == 'select'"
+        "when": "editorTextFocus && leapMode.state == 'on'"
       },
       {
         "key": "shift+alt+l",
         "command": "editor.action.smartSelect.expand",
-        "when": "editorTextFocus && leap.mode == 'select'"
+        "when": "editorTextFocus && leapMode.state == 'on'"
       },
       {
         "key": "alt+i",
         "command": "editor.action.moveLinesUpAction",
-        "when": "editorTextFocus && !editorReadonly && leap.mode == 'select'"
+        "when": "editorTextFocus && !editorReadonly && leapMode.state == 'on'"
       },
       {
         "key": "alt+k",
         "command": "editor.action.moveLinesDownAction",
-        "when": "editorTextFocus && !editorReadonly && leap.mode == 'select'"
+        "when": "editorTextFocus && !editorReadonly && leapMode.state == 'on'"
       },
       {
         "key": "shift+alt+i",
         "command": "editor.action.copyLinesUpAction",
-        "when": "editorTextFocus && !editorReadonly && leap.mode == 'select'"
+        "when": "editorTextFocus && !editorReadonly && leapMode.state == 'on'"
       },
       {
         "key": "shift+alt+k",
         "command": "editor.action.copyLinesDownAction",
-        "when": "editorTextFocus && !editorReadonly && leap.mode == 'select'"
+        "when": "editorTextFocus && !editorReadonly && leapMode.state == 'on'"
       },
       {
         "key": "i",
         "command": "selectPrevSuggestion",
-        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus && leap.mode == 'select'"
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "k",
         "command": "selectNextSuggestion",
-        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus && leap.mode == 'select'"
+        "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "i",
         "command": "workbench.action.quickOpenNavigatePrevious",
-        "when": "inQuickOpen && leap.mode == 'select'"
+        "when": "inQuickOpen && leapMode.state == 'on'"
       },
       {
         "key": "k",
         "command": "workbench.action.quickOpenNavigateNext",
-        "when": "inQuickOpen && leap.mode == 'select'"
+        "when": "inQuickOpen && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+i",
         "command": "list.focusUp",
-        "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
+        "when": "explorerViewletFocus && listFocus && !inputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+k",
         "command": "list.focusDown",
-        "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
+        "when": "explorerViewletFocus && listFocus && !inputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+l",
         "command": "list.expand",
-        "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
+        "when": "explorerViewletFocus && listFocus && !inputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+j",
         "command": "list.collapse",
-        "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
+        "when": "explorerViewletFocus && listFocus && !inputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+up",
         "command": "list.focusUp",
-        "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
+        "when": "explorerViewletFocus && listFocus && !inputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+down",
         "command": "list.focusDown",
-        "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
+        "when": "explorerViewletFocus && listFocus && !inputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+right",
         "command": "list.expand",
-        "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
+        "when": "explorerViewletFocus && listFocus && !inputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+left",
         "command": "list.collapse",
-        "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
+        "when": "explorerViewletFocus && listFocus && !inputFocus && leapMode.state == 'on'"
       },
       {
         "key": "shift+backspace",
         "command": "deleteRight",
-        "when": "textInputFocus && leap.mode == 'select'"
+        "when": "textInputFocus && leapMode.state == 'on'"
       },
       {
         "key": "ctrl+shift+backspace",
         "command": "deleteWordRight",
-        "when": "textInputFocus && !editorReadonly && leap.mode == 'select'"
+        "when": "textInputFocus && !editorReadonly && leapMode.state == 'on'"
       },
       {
         "key": "alt+1",
         "command": "workbench.action.terminal.focusAtIndex1",
-        "when": "terminalFocus && leap.mode == 'select'"
+        "when": "terminalFocus && leapMode.state == 'on'"
       },
       {
         "key": "alt+2",
         "command": "workbench.action.terminal.focusAtIndex2",
-        "when": "terminalFocus && leap.mode == 'select'"
+        "when": "terminalFocus && leapMode.state == 'on'"
       },
       {
         "key": "alt+3",
         "command": "workbench.action.terminal.focusAtIndex3",
-        "when": "terminalFocus && leap.mode == 'select'"
+        "when": "terminalFocus && leapMode.state == 'on'"
       },
       {
         "key": "alt+4",
         "command": "workbench.action.terminal.focusAtIndex4",
-        "when": "terminalFocus && leap.mode == 'select'"
+        "when": "terminalFocus && leapMode.state == 'on'"
       }
     ]
   },

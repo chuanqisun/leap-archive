@@ -1,9 +1,9 @@
 import * as vscode from "vscode";
 import { paragraph } from "./utils/paragraph";
 
-enum InputMode {
-  Edit = "edit",
-  Select = "select",
+enum LeapModeState {
+  Off = "off",
+  On = "on",
 }
 
 const lineHighlighter = vscode.window.createTextEditorDecorationType({
@@ -12,41 +12,41 @@ const lineHighlighter = vscode.window.createTextEditorDecorationType({
 });
 
 export function activate(context: vscode.ExtensionContext) {
-  context.workspaceState.update("leapMode", InputMode.Edit);
+  context.workspaceState.update("leapModeState", LeapModeState.Off);
   const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
-  statusBarItem.text = getStatusBarText(InputMode.Edit);
-  statusBarItem.show();
+  statusBarItem.text = "Leap Mode";
+  statusBarItem.hide();
 
   /** mode toggle command */
-  const toggleCommand = vscode.commands.registerCommand("leap.toggleMode", () => {
-    const currentMode = context.workspaceState.get<InputMode>("leapMode");
-    if (currentMode === InputMode.Edit) {
+  const toggleCommand = vscode.commands.registerCommand("leapMode.toggle", () => {
+    const currentMode = context.workspaceState.get<LeapModeState>("leapModeState");
+    if (currentMode === LeapModeState.Off) {
       turnOnSelectMode(context, statusBarItem);
     } else {
       turnOffSelectMode(context, statusBarItem);
     }
   });
-  const enterSelectModeCommand = vscode.commands.registerCommand("leap.enterSelectMode", () => {
+  const enterSelectModeCommand = vscode.commands.registerCommand("leapMode.turnOn", () => {
     turnOnSelectMode(context, statusBarItem);
   });
-  const exitSelectModeCommand = vscode.commands.registerCommand("leap.exitSelectMode", () => {
+  const exitSelectModeCommand = vscode.commands.registerCommand("leapMode.turnOff", () => {
     turnOffSelectMode(context, statusBarItem);
   });
 
   /** handle paragraph movement */
-  const cursorParagraphUp = vscode.commands.registerTextEditorCommand("leap.cursorParagraphUp", (editor) => paragraph.cursorParagraphUp(editor));
-  const cursorParagraphUpSelect = vscode.commands.registerTextEditorCommand("leap.cursorParagraphUpSelect", (editor) =>
+  const cursorParagraphUp = vscode.commands.registerTextEditorCommand("leapMode.cursorParagraphUp", (editor) => paragraph.cursorParagraphUp(editor));
+  const cursorParagraphUpSelect = vscode.commands.registerTextEditorCommand("leapMode.cursorParagraphUpSelect", (editor) =>
     paragraph.cursorParagraphUpSelect(editor)
   );
-  const cursorParagraphDown = vscode.commands.registerTextEditorCommand("leap.cursorParagraphDown", (editor) => paragraph.cursorParagraphDown(editor));
-  const cursorParagraphDownSelect = vscode.commands.registerTextEditorCommand("leap.cursorParagraphDownSelect", (editor) =>
+  const cursorParagraphDown = vscode.commands.registerTextEditorCommand("leapMode.cursorParagraphDown", (editor) => paragraph.cursorParagraphDown(editor));
+  const cursorParagraphDownSelect = vscode.commands.registerTextEditorCommand("leapMode.cursorParagraphDownSelect", (editor) =>
     paragraph.cursorParagraphDownSelect(editor)
   );
 
   /** update current line highlight */
   const updateHighLight = vscode.window.onDidChangeTextEditorSelection((e) => {
-    const currentMode = context.workspaceState.get<InputMode>("leapMode");
-    if (currentMode === InputMode.Select) {
+    const currentMode = context.workspaceState.get<LeapModeState>("leapModeState");
+    if (currentMode === LeapModeState.On) {
       const ranges = e.selections.map((selection) => new vscode.Range(selection.start, selection.end));
       e.textEditor.setDecorations(lineHighlighter, ranges);
     } else {
@@ -70,14 +70,14 @@ export function activate(context: vscode.ExtensionContext) {
 // this method is called when your extension is deactivated
 export function deactivate() {}
 
-function getStatusBarText(mode: InputMode) {
-  switch (mode) {
-    case InputMode.Edit:
-      return "$(edit) Edit";
-    case InputMode.Select:
-      return "$(move) Select";
-  }
-}
+// function getStatusBarText(mode: LeapModeState) {
+//   switch (mode) {
+//     case LeapModeState.Off:
+//       return "$(edit) Leap: OFF";
+//     case LeapModeState.On:
+//       return "$(move) Leap: ON";
+//   }
+// }
 
 /**
  * Use one commands to trigger multiple commands
@@ -93,10 +93,10 @@ function addMacroCommand(context: vscode.ExtensionContext, inputCommand: string,
  * Turn on leap mode
  */
 function turnOnSelectMode(context: vscode.ExtensionContext, statusBarItem: vscode.StatusBarItem) {
-  const newMode = InputMode.Select;
-  vscode.commands.executeCommand("setContext", "leap.mode", newMode);
-  context.workspaceState.update("leapMode", newMode);
-  statusBarItem.text = getStatusBarText(newMode);
+  const newState = LeapModeState.On;
+  vscode.commands.executeCommand("setContext", "leapMode.state", newState);
+  context.workspaceState.update("leapModeState", newState);
+  statusBarItem.show();
 
   const selections = vscode.window.activeTextEditor?.selections;
   if (selections?.length) {
@@ -109,10 +109,10 @@ function turnOnSelectMode(context: vscode.ExtensionContext, statusBarItem: vscod
  * Turn off leap mode
  */
 function turnOffSelectMode(context: vscode.ExtensionContext, statusBarItem: vscode.StatusBarItem) {
-  const newMode = InputMode.Edit;
-  vscode.commands.executeCommand("setContext", "leap.mode", newMode);
-  context.workspaceState.update("leapMode", newMode);
-  statusBarItem.text = getStatusBarText(newMode);
+  const newState = LeapModeState.Off;
+  vscode.commands.executeCommand("setContext", "leapMode.state", newState);
+  context.workspaceState.update("leapModeState", newState);
+  statusBarItem.hide();
 
   vscode.window.activeTextEditor?.setDecorations(lineHighlighter, []);
 }
