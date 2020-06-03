@@ -103,12 +103,32 @@
         "when": "textInputFocus && leap.mode == 'select'"
       },
       {
+        "key": "ctrl+up",
+        "command": "leap.cursorParagraphUp",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+shift+up",
+        "command": "leap.cursorParagraphUpSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
         "key": "ctrl+k",
         "command": "leap.cursorParagraphDown",
         "when": "textInputFocus && leap.mode == 'select'"
       },
       {
         "key": "ctrl+shift+k",
+        "command": "leap.cursorParagraphDownSelect",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+down",
+        "command": "leap.cursorParagraphDown",
+        "when": "textInputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+shift+down",
         "command": "leap.cursorParagraphDownSelect",
         "when": "textInputFocus && leap.mode == 'select'"
       },
@@ -299,6 +319,26 @@
       },
       {
         "key": "ctrl+j",
+        "command": "list.collapse",
+        "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+up",
+        "command": "list.focusUp",
+        "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+down",
+        "command": "list.focusDown",
+        "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+right",
+        "command": "list.expand",
+        "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
+      },
+      {
+        "key": "ctrl+left",
         "command": "list.collapse",
         "when": "explorerViewletFocus && listFocus && !inputFocus && leap.mode == 'select'"
       },

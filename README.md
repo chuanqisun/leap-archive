@@ -8,30 +8,35 @@ _This is a temporary documentation. An official version is currently being worke
 
 ## Design Philosophy
 
-- Ergonomics
-  - Finger placement over key names
-  - Modifer keys with consistent meaning
-    - `Shift` to select
-    - `Ctrl` to accelerate
-    - `Alt` to manipulate
-  - All movement without mouse or arrow keys
-    - Including explorer and menu navigation
-    - Except for OS native input boxes and menus
-- High compatibility with VS Code built-in behaviors
-  - Preserve all VS Code keybindings in edit mode
-  - No change to multicursor keybindings
-  - Intellisence available in all modes
-  - Search and replace available in all modes
+1. Ergonomics
+   - Finger placement over key names
+   - Modifer keys with consistent meaning
+     - `Shift` to select
+     - `Ctrl` to accelerate
+     - `Alt` to manipulate
+2. All movement without mouse or arrow keys
+   - Including explorer and menu navigation
+   - Except for OS native input boxes and menus
+3. High compatibility with VS Code built-in behaviors
+   - Preserve all VS Code keybindings in edit mode
+   - No change to multicursor keybindings
+   - Intellisence available in all modes
+   - Search and replace available in all modes
 
 ## Anti-goals
 
-- `h`, `j`, `k`, `l` navigation. Leap uses `j`, `i`, `k`, `l` for better ergonomics and learning curve.
+- `hjkl` navigation. Leap uses `ijkl` for better ergonomics and learning curve.
 
-## FAQ
+## Known issues
 
-- What can I do if the mode gets out of sync when I toggle capslock from outside of vscode
-  1. Use `Ctrl`+`Caps Lock` or `Shift`+`Caps Lock` to update the keyboard state without changing the modes.
-  2. (Work in progress) Use an external companion program to completely disable `Caps Lock` and manage the modes.
+1. Mode gets out of sync when you toggle capslock from outside of vscode
+   - Use `Ctrl`+`Caps Lock` or `Shift`+`Caps Lock` to update the keyboard state without changing the modes.
+   - (Work in progress) Use an external companion program to completely disable `Caps Lock` and manage the modes.
+2. File free will enter filter mode when `ijkl` is pressed.
+   - This is beyond the extension's capability. You can use `Ctrl` + `ijkl` to navigate.
+   - (Work in progress) Use an external companion program to map `ijkl` to native arrow keys.
+3. Code action (quick fixes) options cannot be navigated with `ijkl`.
+   - (Work in progress) Use an external companion program to map `ijkl` to native arrow keys.
 
 ## Credits
 
