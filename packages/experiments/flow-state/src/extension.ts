@@ -1,27 +1,71 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
+import { cursorPosition, rememberCursorPosition, updateCursorPosition } from "./utils/cursor-position";
+import { panWordLeft, panWordRight } from "./utils/pan";
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
-
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "flow-state" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('flow-state.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from Flow State!');
-	});
-
-	context.subscriptions.push(disposable);
+export enum FlowStateMode {
+  Select = "select",
+  Edit = "edit",
 }
 
-// this method is called when your extension is deactivated
+export function activate(context: vscode.ExtensionContext) {
+  setMode(FlowStateMode.Edit);
+
+  const enterEditModeCommand = vscode.commands.registerTextEditorCommand("flowState.enterEditMode", (editor) => {
+    const newSelection = new vscode.Selection(cursorPosition, cursorPosition);
+    setMode(FlowStateMode.Edit);
+
+    editor.selection = newSelection;
+    editor.revealRange(new vscode.Range(cursorPosition, cursorPosition));
+  });
+
+  const enterSelectModeCommand = vscode.commands.registerTextEditorCommand("flowState.enterSelectMode", (editor) => {
+    rememberCursorPosition(editor);
+    setMode(FlowStateMode.Select);
+
+    vscode.commands.executeCommand("editor.action.addSelectionToNextFindMatch");
+  });
+
+  const panUpCommand = vscode.commands.registerTextEditorCommand("flowState.panUp", (editor) => {
+    if (cursorPosition.line > 0) {
+      updateCursorPosition(editor, cursorPosition.line - 1, cursorPosition.character);
+      vscode.commands.executeCommand("cancelSelection");
+      editor.selection = new vscode.Selection(cursorPosition, cursorPosition);
+      vscode.commands.executeCommand("editor.action.addSelectionToNextFindMatch");
+    }
+  });
+
+  const panDownCommand = vscode.commands.registerTextEditorCommand("flowState.panDown", (editor) => {
+    const document = editor.document;
+    const max = document.lineCount - 1;
+
+    if (cursorPosition.line < max) {
+      updateCursorPosition(editor, cursorPosition.line + 1, cursorPosition.character);
+      vscode.commands.executeCommand("cancelSelection");
+      editor.selection = new vscode.Selection(cursorPosition, cursorPosition);
+      vscode.commands.executeCommand("editor.action.addSelectionToNextFindMatch");
+    }
+  });
+
+  const panLeftCommand = vscode.commands.registerTextEditorCommand("flowState.panLeft", async (editor) => {
+    await panWordLeft(editor);
+    rememberCursorPosition(editor);
+  });
+
+  const panRightCommand = vscode.commands.registerTextEditorCommand("flowState.panRight", async (editor) => {
+    await panWordRight(editor);
+    rememberCursorPosition(editor);
+  });
+
+  context.subscriptions.push(enterEditModeCommand);
+  context.subscriptions.push(enterSelectModeCommand);
+  context.subscriptions.push(panUpCommand);
+  context.subscriptions.push(panDownCommand);
+  context.subscriptions.push(panLeftCommand);
+  context.subscriptions.push(panRightCommand);
+}
+
 export function deactivate() {}
+
+function setMode(mode: FlowStateMode) {
+  vscode.commands.executeCommand("setContext", "flowState.mode", mode);
+}

@@ -1,45 +1,116 @@
 {
-	"name": "flow-state",
-	"displayName": "Flow State",
-	"description": "Optimize vscode for code editing",
-	"version": "0.0.1",
-	"engines": {
-		"vscode": "^1.45.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"onCommand:flow-state.helloWorld"
-	],
-	"main": "./out/extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "flow-state.helloWorld",
-				"title": "Hello World"
-			}
-		]
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"lint": "eslint src --ext ts",
-		"watch": "tsc -watch -p ./",
-		"pretest": "npm run compile && npm run lint",
-		"test": "node ./out/test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/vscode": "^1.45.0",
-		"@types/glob": "^7.1.1",
-		"@types/mocha": "^7.0.2",
-		"@types/node": "^13.11.0",
-		"eslint": "^6.8.0",
-		"@typescript-eslint/parser": "^2.30.0",
-		"@typescript-eslint/eslint-plugin": "^2.30.0",
-		"glob": "^7.1.6",
-		"mocha": "^7.1.2",
-		"typescript": "^3.8.3",
-		"vscode-test": "^1.3.0"
-	}
+  "name": "flow-state",
+  "displayName": "Flow State",
+  "description": "Optimize vscode for code editing",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.45.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Flow State Mode",
+      "properties": {
+        "flowState.mode": {
+          "enum": [
+            "select",
+            "edit"
+          ],
+          "default": "edit",
+          "description": "The current mode of Flow State"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "flowState.enterEditMode",
+        "title": "Enter edit mode",
+        "category": "Flow State"
+      },
+      {
+        "command": "flowState.enterSelectMode",
+        "title": "Enter select mode",
+        "category": "Flow State"
+      },
+      {
+        "command": "flowState.panUp",
+        "title": "Pan up",
+        "category": "Flow State"
+      },
+      {
+        "command": "flowState.panDown",
+        "title": "Pan down",
+        "category": "Flow State"
+      },
+      {
+        "command": "flowState.panLeft",
+        "title": "Pan left",
+        "category": "Flow State"
+      },
+      {
+        "command": "flowState.panRight",
+        "title": "Pan right",
+        "category": "Flow State"
+      }
+    ],
+    "keybindings": [
+      {
+        "key": "ctrl+insert",
+        "command": "flowState.enterEditMode",
+        "when": "flowState.mode == 'select'"
+      },
+      {
+        "key": "ctrl+insert",
+        "command": "flowState.enterSelectMode",
+        "when": "flowState.mode == 'edit'"
+      },
+      {
+        "key": "up",
+        "command": "flowState.panUp",
+        "when": "flowState.mode == 'select' && !editorHasMultipleSelections"
+      },
+      {
+        "key": "down",
+        "command": "flowState.panDown",
+        "when": "flowState.mode == 'select' && !editorHasMultipleSelections"
+      },
+      {
+        "key": "left",
+        "command": "flowState.panLeft",
+        "when": "flowState.mode == 'select'"
+      },
+      {
+        "key": "right",
+        "command": "flowState.panRight",
+        "when": "flowState.mode == 'select'"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "lint": "eslint src --ext ts",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.45.0",
+    "@types/glob": "^7.1.1",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.11.0",
+    "eslint": "^6.8.0",
+    "@typescript-eslint/parser": "^2.30.0",
+    "@typescript-eslint/eslint-plugin": "^2.30.0",
+    "glob": "^7.1.6",
+    "mocha": "^7.1.2",
+    "typescript": "^3.8.3",
+    "vscode-test": "^1.3.0"
+  }
 }
