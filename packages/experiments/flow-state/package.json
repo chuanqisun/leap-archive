@@ -109,6 +109,26 @@
         "key": "down",
         "command": "flowState.rotateNext",
         "when": "flowState.mode == 'select' && editorHasMultipleSelections"
+      },
+      {
+        "key": "ctrl+down",
+        "command": "editor.action.nextMatchFindAction",
+        "when": "flowState.mode == 'select' && editorFocus"
+      },
+      {
+        "key": "ctrl+up",
+        "command": "editor.action.previousMatchFindAction",
+        "when": "flowState.mode == 'select' && editorFocus"
+      },
+      {
+        "key": "ctrl+shift+down",
+        "command": "editor.action.addSelectionToNextFindMatch",
+        "when": "flowState.mode == 'select' && editorFocus"
+      },
+      {
+        "key": "ctrl+shift+up",
+        "command": "editor.action.addSelectionToPreviousFindMatch",
+        "when": "flowState.mode == 'select' && editorFocus"
       }
     ]
   },
