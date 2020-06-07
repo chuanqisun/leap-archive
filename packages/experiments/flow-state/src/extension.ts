@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { cursorPosition, rememberCursorPosition, updateCursorPosition } from "./utils/cursor-position";
 import { panWordLeft, panWordRight } from "./utils/pan";
+import { rotateNext, rotatePrev } from "./utils/rotate";
 
 export enum FlowStateMode {
   Select = "select",
@@ -46,6 +47,16 @@ export function activate(context: vscode.ExtensionContext) {
     }
   });
 
+  const rotateUpCommand = vscode.commands.registerTextEditorCommand("flowState.rotatePrev", (editor) => {
+    rotatePrev(editor);
+    rememberCursorPosition(editor);
+  });
+
+  const rotateDownCommand = vscode.commands.registerTextEditorCommand("flowState.rotateNext", (editor) => {
+    rotateNext(editor);
+    rememberCursorPosition(editor);
+  });
+
   const panLeftCommand = vscode.commands.registerTextEditorCommand("flowState.panLeft", async (editor) => {
     await panWordLeft(editor);
     rememberCursorPosition(editor);
@@ -62,6 +73,8 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(panDownCommand);
   context.subscriptions.push(panLeftCommand);
   context.subscriptions.push(panRightCommand);
+  context.subscriptions.push(rotateUpCommand);
+  context.subscriptions.push(rotateDownCommand);
 }
 
 export function deactivate() {}

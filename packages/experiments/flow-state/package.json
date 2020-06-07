@@ -57,6 +57,16 @@
         "command": "flowState.panRight",
         "title": "Pan right",
         "category": "Flow State"
+      },
+      {
+        "command": "flowState.rotatePrev",
+        "title": "Rotate previous",
+        "category": "Flow State"
+      },
+      {
+        "command": "flowState.rotateNext",
+        "title": "Rotate next",
+        "category": "Flow State"
       }
     ],
     "keybindings": [
@@ -89,6 +99,16 @@
         "key": "right",
         "command": "flowState.panRight",
         "when": "flowState.mode == 'select'"
+      },
+      {
+        "key": "up",
+        "command": "flowState.rotatePrev",
+        "when": "flowState.mode == 'select' && editorHasMultipleSelections"
+      },
+      {
+        "key": "down",
+        "command": "flowState.rotateNext",
+        "when": "flowState.mode == 'select' && editorHasMultipleSelections"
       }
     ]
   },
