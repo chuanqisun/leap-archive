@@ -1,59 +1,22 @@
 import * as vscode from "vscode";
+import { activatePanHorizontalCommands } from "./commands/pan-horizontal";
 import { activatePanVerticalCommands } from "./commands/pan-vertical";
-import { cursorPosition, handleCusorPositionChange } from "./utils/cursor-memory";
-import { panWordLeft, panWordRight } from "./utils/pan";
-import { rotateNext, rotatePrev } from "./utils/rotate";
+import { handleCusorPositionChange } from "./utils/cursor-memory";
 
 export enum FlowStateMode {
   Select = "select",
-  Edit = "edit",
+  Edit = "edit" /** TODO: eliminate edit mode */,
 }
 
 export function activate(context: vscode.ExtensionContext) {
-  setMode(FlowStateMode.Edit);
+  setMode(FlowStateMode.Select);
 
   const handleSelectionChange = vscode.window.onDidChangeTextEditorSelection(handleCusorPositionChange);
 
-  const enterEditModeCommand = vscode.commands.registerTextEditorCommand("flowState.enterEditMode", (editor) => {
-    const newSelection = new vscode.Selection(cursorPosition, cursorPosition);
-    setMode(FlowStateMode.Edit);
-
-    editor.selection = newSelection;
-    editor.revealRange(new vscode.Range(cursorPosition, cursorPosition));
-  });
-
-  const enterSelectModeCommand = vscode.commands.registerTextEditorCommand("flowState.enterSelectMode", (editor) => {
-    setMode(FlowStateMode.Select);
-
-    vscode.commands.executeCommand("editor.action.addSelectionToNextFindMatch");
-  });
-
   activatePanVerticalCommands(context);
-
-  const rotateUpCommand = vscode.commands.registerTextEditorCommand("flowState.rotatePrev", (editor) => {
-    rotatePrev(editor);
-  });
-
-  const rotateDownCommand = vscode.commands.registerTextEditorCommand("flowState.rotateNext", (editor) => {
-    rotateNext(editor);
-  });
-
-  const panLeftCommand = vscode.commands.registerTextEditorCommand("flowState.panLeft", async (editor) => {
-    await panWordLeft(editor);
-  });
-
-  const panRightCommand = vscode.commands.registerTextEditorCommand("flowState.panRight", async (editor) => {
-    await panWordRight(editor);
-  });
+  activatePanHorizontalCommands(context);
 
   context.subscriptions.push(handleSelectionChange);
-
-  context.subscriptions.push(enterEditModeCommand);
-  context.subscriptions.push(enterSelectModeCommand);
-  context.subscriptions.push(panLeftCommand);
-  context.subscriptions.push(panRightCommand);
-  context.subscriptions.push(rotateUpCommand);
-  context.subscriptions.push(rotateDownCommand);
 }
 
 export function deactivate() {}

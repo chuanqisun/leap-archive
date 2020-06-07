@@ -29,16 +29,6 @@
     },
     "commands": [
       {
-        "command": "flowState.enterEditMode",
-        "title": "Enter edit mode",
-        "category": "Flow State"
-      },
-      {
-        "command": "flowState.enterSelectMode",
-        "title": "Enter select mode",
-        "category": "Flow State"
-      },
-      {
         "command": "flowState.panUp",
         "title": "Pan up",
         "category": "Flow State"
@@ -57,38 +47,18 @@
         "command": "flowState.panRight",
         "title": "Pan right",
         "category": "Flow State"
-      },
-      {
-        "command": "flowState.rotatePrev",
-        "title": "Rotate previous",
-        "category": "Flow State"
-      },
-      {
-        "command": "flowState.rotateNext",
-        "title": "Rotate next",
-        "category": "Flow State"
       }
     ],
     "keybindings": [
       {
-        "key": "ctrl+insert",
-        "command": "flowState.enterEditMode",
-        "when": "flowState.mode == 'select'"
-      },
-      {
-        "key": "ctrl+insert",
-        "command": "flowState.enterSelectMode",
-        "when": "flowState.mode == 'edit'"
-      },
-      {
         "key": "up",
         "command": "flowState.panUp",
-        "when": "flowState.mode == 'select' && !editorHasMultipleSelections"
+        "when": "flowState.mode == 'select'"
       },
       {
         "key": "down",
         "command": "flowState.panDown",
-        "when": "flowState.mode == 'select' && !editorHasMultipleSelections"
+        "when": "flowState.mode == 'select'"
       },
       {
         "key": "left",
@@ -99,36 +69,6 @@
         "key": "right",
         "command": "flowState.panRight",
         "when": "flowState.mode == 'select'"
-      },
-      {
-        "key": "up",
-        "command": "flowState.rotatePrev",
-        "when": "flowState.mode == 'select' && editorHasMultipleSelections"
-      },
-      {
-        "key": "down",
-        "command": "flowState.rotateNext",
-        "when": "flowState.mode == 'select' && editorHasMultipleSelections"
-      },
-      {
-        "key": "ctrl+down",
-        "command": "editor.action.nextMatchFindAction",
-        "when": "flowState.mode == 'select' && editorFocus"
-      },
-      {
-        "key": "ctrl+up",
-        "command": "editor.action.previousMatchFindAction",
-        "when": "flowState.mode == 'select' && editorFocus"
-      },
-      {
-        "key": "ctrl+shift+down",
-        "command": "editor.action.addSelectionToNextFindMatch",
-        "when": "flowState.mode == 'select' && editorFocus"
-      },
-      {
-        "key": "ctrl+shift+up",
-        "command": "editor.action.addSelectionToPreviousFindMatch",
-        "when": "flowState.mode == 'select' && editorFocus"
       }
     ]
   },

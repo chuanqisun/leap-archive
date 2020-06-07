@@ -1,12 +1,8 @@
 import * as vscode from "vscode";
+import { CursorPositionMode, getCurrentCursorPositionMode } from "./cursor-position";
 
 export let cursorPosition: vscode.Position;
-export let cursorMode: CursorMode;
-export enum CursorMode {
-  Normal = "normal",
-  Home = "home",
-  End = "end",
-}
+export let cursorPositionMode: CursorPositionMode;
 
 let skipNextAutoSaveByCommand = false;
 
@@ -15,8 +11,8 @@ export function handleCusorPositionChange(changeEvent: vscode.TextEditorSelectio
     const editor = changeEvent.textEditor;
 
     cursorPosition = new vscode.Position(editor.selection.active.line, editor.selection.active.character);
-    cursorMode = getCurrentCursorMode(editor);
-    console.log(`[cursor mem] auto save: ${[editor.selection.active.line, editor.selection.active.character, cursorMode]}`);
+    cursorPositionMode = getCurrentCursorPositionMode(editor);
+    console.log(`[cursor mem] auto save: ${[editor.selection.active.line, editor.selection.active.character, cursorPositionMode]}`);
   }
 
   if (skipNextAutoSaveByCommand && changeEvent.kind === vscode.TextEditorSelectionChangeKind.Command) {
@@ -25,13 +21,13 @@ export function handleCusorPositionChange(changeEvent: vscode.TextEditorSelectio
   }
 }
 
-export function saveCursorPosition(line: number, character: number, changedCursorMode?: CursorMode, skipNextAutoSave = true) {
+export function saveCursorPosition(line: number, character: number, changedCursorMode?: CursorPositionMode, skipNextAutoSave = true) {
   // assuming the caller of this function is in a command
   skipNextAutoSave && skipNextAutoSaveCausedByCommand();
   cursorPosition = new vscode.Position(line, character);
 
   if (changedCursorMode) {
-    cursorMode = changedCursorMode;
+    cursorPositionMode = changedCursorMode;
   }
 
   console.log(`[cursor mem] manual save: ${[line, character]}`);
@@ -40,22 +36,4 @@ export function saveCursorPosition(line: number, character: number, changedCurso
 function skipNextAutoSaveCausedByCommand() {
   skipNextAutoSaveByCommand = true;
   console.log(`[cursor mem] will skip next auto save`);
-}
-
-function getCurrentCursorMode(editor: vscode.TextEditor): CursorMode {
-  const isEmptySelection = editor.selection.isEmpty;
-  if (!isEmptySelection) {
-    return CursorMode.Normal;
-  }
-
-  if (editor.selection.active.character === 0) {
-    return CursorMode.Home;
-  }
-
-  const currentLineEnd = editor.document.lineAt(editor.selection.active.line).range.end.character;
-  if (editor.selection.active.character === currentLineEnd) {
-    return CursorMode.End;
-  }
-
-  return CursorMode.Normal;
 }

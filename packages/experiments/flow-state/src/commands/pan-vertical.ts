@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
-import { cursorMode, CursorMode, cursorPosition, saveCursorPosition } from "../utils/cursor-memory";
+import { cursorPosition, cursorPositionMode, saveCursorPosition } from "../utils/cursor-memory";
+import { CursorPositionMode } from "../utils/cursor-position";
 
 export function activatePanVerticalCommands(context: vscode.ExtensionContext) {
   const panUpCommand = vscode.commands.registerTextEditorCommand("flowState.panUp", (editor) => {
@@ -9,9 +10,9 @@ export function activatePanVerticalCommands(context: vscode.ExtensionContext) {
       return;
     }
 
-    if (cursorMode === CursorMode.End) {
+    if (cursorPositionMode === CursorPositionMode.End) {
       selectLineEnd(editor, candidateLine);
-    } else if (cursorMode === CursorMode.Home) {
+    } else if (cursorPositionMode === CursorPositionMode.Home) {
       selectLineStart(editor, candidateLine);
     } else {
       selectNearestWordOrPositionOnLine(editor, candidateLine, cursorPosition.character);
@@ -27,9 +28,9 @@ export function activatePanVerticalCommands(context: vscode.ExtensionContext) {
       return;
     }
 
-    if (cursorMode === CursorMode.End) {
+    if (cursorPositionMode === CursorPositionMode.End) {
       selectLineEnd(editor, candidateLine);
-    } else if (cursorMode === CursorMode.Home) {
+    } else if (cursorPositionMode === CursorPositionMode.Home) {
       selectLineStart(editor, candidateLine);
     } else {
       selectNearestWordOrPositionOnLine(editor, candidateLine, cursorPosition.character);
