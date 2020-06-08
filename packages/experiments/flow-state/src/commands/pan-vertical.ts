@@ -13,11 +13,11 @@ export function activatePanVerticalCommands(context: vscode.ExtensionContext) {
     }
 
     if (cursorPositionMode === CursorPositionMode.End) {
-      console.log("[pan-v] line end, move down");
+      console.log("[pan-v] line end, move up");
 
       selectLineEndNoAutoSave(editor, candidateLine);
     } else if (cursorPositionMode === CursorPositionMode.Home) {
-      console.log("[pan-v] line start, move down");
+      console.log("[pan-v] line start, move up");
 
       selectLineStartNoAutoSave(editor, candidateLine);
     } else {
@@ -38,13 +38,13 @@ export function activatePanVerticalCommands(context: vscode.ExtensionContext) {
     }
 
     if (cursorPositionMode === CursorPositionMode.End) {
-      console.log("[pan-v] line end, move up");
+      console.log("[pan-v] line end, move down");
       selectLineEndNoAutoSave(editor, candidateLine);
       return;
     }
 
     if (cursorPositionMode === CursorPositionMode.Home) {
-      console.log("[pan-v] line start, move up");
+      console.log("[pan-v] line start, move down");
       selectLineStartNoAutoSave(editor, candidateLine);
       return;
     }
