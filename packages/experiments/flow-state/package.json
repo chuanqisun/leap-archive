@@ -7,7 +7,7 @@
     "email": "git@chuanqisun.com"
   },
   "description": "A selection first keybindgins",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.45.0"
   },
@@ -58,22 +58,22 @@
       {
         "key": "up",
         "command": "flowState.panUp",
-        "when": "flowState.mode == 'select' && !editorHasMultipleSelections"
+        "when": "flowState.mode == 'select' && textInputFocus && !suggestWidgetVisible && !editorHasMultipleSelections"
       },
       {
         "key": "down",
         "command": "flowState.panDown",
-        "when": "flowState.mode == 'select' && !editorHasMultipleSelections"
+        "when": "flowState.mode == 'select' && textInputFocus && !suggestWidgetVisible && !editorHasMultipleSelections"
       },
       {
         "key": "left",
         "command": "flowState.panLeft",
-        "when": "flowState.mode == 'select' && !editorHasMultipleSelections"
+        "when": "flowState.mode == 'select' && textInputFocus && !suggestWidgetVisible && !editorHasMultipleSelections"
       },
       {
         "key": "right",
         "command": "flowState.panRight",
-        "when": "flowState.mode == 'select' && !editorHasMultipleSelections"
+        "when": "flowState.mode == 'select' && textInputFocus && !suggestWidgetVisible && !editorHasMultipleSelections"
       }
     ]
   },
