@@ -1,12 +1,12 @@
 import * as vscode from "vscode";
-import { saveCursorPosition } from "./cursor-memory";
+import { saveCursorActivePosition } from "./cursor-memory";
 
 export function selectLineStart(editor: vscode.TextEditor, line: number, preserveCursorPositionMode = false) {
   const lineStartPosition = new vscode.Position(line, 0);
   selectAndReveal(editor, new vscode.Selection(lineStartPosition, lineStartPosition));
 
   if (preserveCursorPositionMode) {
-    saveCursorPosition(line, lineStartPosition.character);
+    saveCursorActivePosition(line, lineStartPosition.character);
   }
 }
 
@@ -15,7 +15,7 @@ export function selectLineEnd(editor: vscode.TextEditor, line: number, preserveC
   selectAndReveal(editor, new vscode.Selection(lineEndPosition, lineEndPosition));
 
   if (preserveCursorPositionMode) {
-    saveCursorPosition(line, lineEndPosition.character);
+    saveCursorActivePosition(line, lineEndPosition.character);
   }
 }
 
