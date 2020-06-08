@@ -1,7 +1,6 @@
 import * as vscode from "vscode";
-import { cursorActivePosition, cursorPositionMode, saveCursorActivePosition } from "../utils/cursor-memory";
+import { cursorActivePosition, cursorAnchorPosition, cursorPositionMode, saveCursorActivePosition, saveSelection } from "../utils/cursor-memory";
 import { CursorPositionMode } from "../utils/cursor-position";
-import { selectByRange, selectLineEnd, selectLineStart } from "../utils/select";
 
 export function activatePanVerticalCommands(context: vscode.ExtensionContext) {
   const panUpCommand = vscode.commands.registerTextEditorCommand("flowState.panUp", (editor) => {
@@ -12,19 +11,33 @@ export function activatePanVerticalCommands(context: vscode.ExtensionContext) {
       return;
     }
 
-    if (cursorPositionMode === CursorPositionMode.End) {
-      console.log("[pan-v] line end, move up");
+    // will by on empty line. Since home/start mode will be ambigous, we will manually update position to avoid auto saving mode
+    if (editor.document.lineAt(candidateLine).isEmptyOrWhitespace) {
+      console.log("[pan-v] will be on empty line, use cursor up");
 
-      selectLineEndNoAutoSave(editor, candidateLine);
-    } else if (cursorPositionMode === CursorPositionMode.Home) {
-      console.log("[pan-v] line start, move up");
+      const newActive = new vscode.Position(candidateLine, cursorActivePosition.character);
+      const newAnchor = new vscode.Position(candidateLine, cursorAnchorPosition.character);
 
-      selectLineStartNoAutoSave(editor, candidateLine);
-    } else {
-      console.log("[pan-v] line middle, select nearest word");
+      saveCursorActivePosition(candidateLine, cursorActivePosition.character);
+      saveSelection(new vscode.Selection(newAnchor, newActive));
+      vscode.commands.executeCommand("cursorUp");
 
-      selectNearestWordOrPositionOnLine(editor, candidateLine, cursorActivePosition.character);
+      return;
     }
+
+    // currently on line start/end
+
+    if (cursorPositionMode === CursorPositionMode.End || cursorPositionMode === CursorPositionMode.Home) {
+      console.log("[pan-v] line start/end, move up");
+
+      vscode.commands.executeCommand("cursorUp");
+
+      return;
+    }
+
+    console.log("[pan-v] line middle, select nearest word");
+
+    selectNearestWordOrPositionOnLine(editor, candidateLine, cursorActivePosition.character);
   });
 
   const panDownCommand = vscode.commands.registerTextEditorCommand("flowState.panDown", (editor) => {
@@ -37,39 +50,32 @@ export function activatePanVerticalCommands(context: vscode.ExtensionContext) {
       return;
     }
 
-    if (cursorPositionMode === CursorPositionMode.End) {
-      console.log("[pan-v] line end, move down");
-      selectLineEndNoAutoSave(editor, candidateLine);
+    // will by on empty line. Since home/start mode will be ambigous, we will manually update position to avoid auto saving mode
+    if (editor.document.lineAt(candidateLine).isEmptyOrWhitespace) {
+      console.log("[pan-v] will be on empty line, use cursor down");
+
+      const newActive = new vscode.Position(candidateLine, cursorActivePosition.character);
+      const newAnchor = new vscode.Position(candidateLine, cursorAnchorPosition.character);
+
+      saveCursorActivePosition(candidateLine, cursorActivePosition.character);
+      saveSelection(new vscode.Selection(newAnchor, newActive));
+      vscode.commands.executeCommand("cursorDown");
+
       return;
     }
 
-    if (cursorPositionMode === CursorPositionMode.Home) {
-      console.log("[pan-v] line start, move down");
-      selectLineStartNoAutoSave(editor, candidateLine);
+    // currently on line start/end
+    if (cursorPositionMode === CursorPositionMode.End || cursorPositionMode === CursorPositionMode.Home) {
+      console.log("[pan-v] line start/end, move down");
+
+      vscode.commands.executeCommand("cursorDown");
+
       return;
     }
 
-    // selectNearestWordOrPositionOnLine(editor, candidateLine, cursorActivePosition.character);
-    // handle position based selection
-    const candidateActive = new vscode.Position(candidateLine, cursorActivePosition.character);
-    const candidateAnchor = new vscode.Position(candidateLine, cursorActivePosition.character - 1);
-    const candidateLetterRange = new vscode.Range(candidateAnchor, candidateActive);
-    const candidateActiveLetter = editor.document.getText(candidateLetterRange);
+    console.log("[pan-v] line middle, select nearest word");
 
-    console.log("[pan-v] find word based on letter: ", candidateActiveLetter);
-
-    if (candidateActiveLetter.match(/\w+/)) {
-      console.log("[pan-v] select word");
-      const candidateWordRange = editor.document.getWordRangeAtPosition(candidateActive);
-      if (candidateWordRange) {
-        selectByRange(editor, candidateWordRange, true); // sign should be based on reversal state
-      } else {
-        throw new Error("A word is expected but not found");
-      }
-    } else {
-      console.log("[pan-v] select non-word char");
-      selectByRange(editor, candidateLetterRange); // sign should be based on reversal state
-    }
+    selectNearestWordOrPositionOnLine(editor, candidateLine, cursorActivePosition.character);
   });
 
   context.subscriptions.push(panUpCommand);
@@ -93,12 +99,4 @@ function selectNearestWordOrPositionOnLine(editor: vscode.TextEditor, line: numb
     editor.revealRange(candidateWordRange);
     saveCursorActivePosition(line, character);
   }
-}
-
-function selectLineStartNoAutoSave(editor: vscode.TextEditor, line: number) {
-  selectLineStart(editor, line, true);
-}
-
-function selectLineEndNoAutoSave(editor: vscode.TextEditor, line: number) {
-  selectLineEnd(editor, line, true);
 }

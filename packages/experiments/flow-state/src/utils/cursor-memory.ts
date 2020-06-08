@@ -24,7 +24,7 @@ export function handleCusorPositionChange(changeEvent: vscode.TextEditorSelectio
     );
   }
 
-  if (skipNextAutoPositionSaveByCommand && changeEvent.kind === vscode.TextEditorSelectionChangeKind.Command) {
+  if (skipNextAutoPositionSaveByCommand) {
     console.log(`[cursor mem] skipped auto position save`);
     skipNextAutoPositionSaveByCommand = false;
   }

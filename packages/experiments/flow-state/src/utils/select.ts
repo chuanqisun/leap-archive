@@ -1,23 +1,22 @@
 import * as vscode from "vscode";
-import { saveCursorActivePosition } from "./cursor-memory";
 
-export function selectLineStart(editor: vscode.TextEditor, line: number, preserveCursorPositionMode = false) {
-  const lineStartPosition = new vscode.Position(line, 0);
-  selectAndReveal(editor, new vscode.Selection(lineStartPosition, lineStartPosition));
+// export function selectLineStart(editor: vscode.TextEditor, line: number, preserveCursorPositionMode = false) {
+//   const lineStartPosition = new vscode.Position(line, 0);
+//   selectAndReveal(editor, new vscode.Selection(lineStartPosition, lineStartPosition));
 
-  if (preserveCursorPositionMode) {
-    saveCursorActivePosition(line, lineStartPosition.character);
-  }
-}
+//   if (preserveCursorPositionMode) {
+//     saveCursorActivePosition(line, lineStartPosition.character);
+//   }
+// }
 
-export function selectLineEnd(editor: vscode.TextEditor, line: number, preserveCursorPositionMode = false) {
-  const lineEndPosition = new vscode.Position(line, editor.document.lineAt(line).range.end.character);
-  selectAndReveal(editor, new vscode.Selection(lineEndPosition, lineEndPosition));
+// export function selectLineEnd(editor: vscode.TextEditor, line: number, preserveCursorPositionMode = false) {
+//   const lineEndPosition = new vscode.Position(line, editor.document.lineAt(line).range.end.character);
+//   selectAndReveal(editor, new vscode.Selection(lineEndPosition, lineEndPosition));
 
-  if (preserveCursorPositionMode) {
-    saveCursorActivePosition(line, lineEndPosition.character);
-  }
-}
+//   if (preserveCursorPositionMode) {
+//     saveCursorActivePosition(line, lineEndPosition.character);
+//   }
+// }
 
 export function collapseToActive(editor: vscode.TextEditor) {
   editor.selection = new vscode.Selection(editor.selection.active, editor.selection.active);
