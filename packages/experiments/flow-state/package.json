@@ -6,7 +6,7 @@
     "name": "Chuánqí Sun",
     "email": "git@chuanqisun.com"
   },
-  "description": "Optimize vscode for code editing",
+  "description": "A selection first keybindgins",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.45.0"
