@@ -11,7 +11,11 @@ export enum FlowStateMode {
 export function activate(context: vscode.ExtensionContext) {
   setMode(FlowStateMode.Select);
 
-  const handleSelectionChange = vscode.window.onDidChangeTextEditorSelection(handleCusorPositionChange);
+  const handleSelectionChange = vscode.window.onDidChangeTextEditorSelection((e) => handleCusorPositionChange(e.textEditor));
+
+  if (vscode.window.activeTextEditor) {
+    handleCusorPositionChange(vscode.window.activeTextEditor);
+  }
 
   activatePanVerticalCommands(context);
   activatePanHorizontalCommands(context);

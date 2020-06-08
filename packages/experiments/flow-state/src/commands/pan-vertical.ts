@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { cursorPositionMode, savedSelection, saveSelection } from "../utils/cursor-memory";
 import { CursorPositionMode } from "../utils/cursor-position";
+import { selectByRange } from "../utils/select";
 
 export function activatePanVerticalCommands(context: vscode.ExtensionContext) {
   const panUpCommand = vscode.commands.registerTextEditorCommand("flowState.panUp", (editor) => {
@@ -34,8 +35,8 @@ export function activatePanVerticalCommands(context: vscode.ExtensionContext) {
       return;
     }
 
+    // handle position based selection
     console.log("[pan-v] line middle, select nearest word");
-
     selectNearestWordOrPositionOnLine(editor, idealAnchor, idealActive);
   });
 
@@ -71,8 +72,8 @@ export function activatePanVerticalCommands(context: vscode.ExtensionContext) {
       return;
     }
 
+    // handle position based selection
     console.log("[pan-v] line middle, select nearest word");
-
     selectNearestWordOrPositionOnLine(editor, idealAnchor, idealActive);
   });
 
@@ -80,20 +81,29 @@ export function activatePanVerticalCommands(context: vscode.ExtensionContext) {
   context.subscriptions.push(panDownCommand);
 }
 
-// TODO: support the same select regex as horizontal movement
 function selectNearestWordOrPositionOnLine(editor: vscode.TextEditor, idealAnchor: vscode.Position, idealActive: vscode.Position) {
-  let candidateWordRange: vscode.Range | undefined;
+  const wasReversed = idealAnchor.isAfter(idealActive);
+  const candidateActive = idealActive;
+  const candidateAnchor = wasReversed
+    ? new vscode.Position(idealActive.line, idealActive.character + 1)
+    : new vscode.Position(idealActive.line, idealActive.character - 1);
+  const candidateLetterRange = new vscode.Range(candidateAnchor, candidateActive);
+  const candidateActiveLetter = editor.document.getText(candidateLetterRange);
 
-  const safePosition = idealActive;
+  console.log("[pan-v] find word based on letter: ", candidateActiveLetter);
 
-  candidateWordRange = editor.document.getWordRangeAtPosition(new vscode.Position(safePosition.line, safePosition.character));
-  if (!candidateWordRange) {
-    candidateWordRange = new vscode.Range(safePosition, safePosition);
-  }
-
-  if (candidateWordRange) {
-    editor.selection = new vscode.Selection(candidateWordRange.start, candidateWordRange.end);
-    editor.revealRange(candidateWordRange);
-    saveSelection(new vscode.Selection(idealAnchor, idealActive));
+  if (candidateActiveLetter.match(/\w+/)) {
+    console.log("[pan-v] select word");
+    const candidateWordRange = editor.document.getWordRangeAtPosition(candidateActive);
+    if (candidateWordRange) {
+      saveSelection(new vscode.Selection(idealAnchor, idealActive)); // always preserve ideal selection
+      selectByRange(editor, candidateWordRange, wasReversed);
+    } else {
+      throw new Error("A word is expected but not found");
+    }
+  } else {
+    console.log("[pan-v] select non-word char");
+    saveSelection(new vscode.Selection(idealAnchor, idealActive)); // always preserve ideal selection
+    selectByRange(editor, candidateLetterRange, wasReversed);
   }
 }

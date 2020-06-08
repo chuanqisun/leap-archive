@@ -53,22 +53,22 @@
       {
         "key": "up",
         "command": "flowState.panUp",
-        "when": "flowState.mode == 'select'"
+        "when": "flowState.mode == 'select' && !editorHasMultipleSelections"
       },
       {
         "key": "down",
         "command": "flowState.panDown",
-        "when": "flowState.mode == 'select'"
+        "when": "flowState.mode == 'select' && !editorHasMultipleSelections"
       },
       {
         "key": "left",
         "command": "flowState.panLeft",
-        "when": "flowState.mode == 'select'"
+        "when": "flowState.mode == 'select' && !editorHasMultipleSelections"
       },
       {
         "key": "right",
         "command": "flowState.panRight",
-        "when": "flowState.mode == 'select'"
+        "when": "flowState.mode == 'select' && !editorHasMultipleSelections"
       }
     ]
   },

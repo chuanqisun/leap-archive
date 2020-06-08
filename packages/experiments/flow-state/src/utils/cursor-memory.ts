@@ -1,16 +1,13 @@
 import * as vscode from "vscode";
 import { CursorPositionMode, getCurrentCursorPositionMode } from "./cursor-position";
 
-export let cursorPositionMode: CursorPositionMode;
-
+export let cursorPositionMode: CursorPositionMode = CursorPositionMode.Normal;
 export let savedSelection: vscode.Selection;
 
 let skipNextAutoPositionSaveByCommand = false;
 
-export function handleCusorPositionChange(changeEvent: vscode.TextEditorSelectionChangeEvent) {
+export function handleCusorPositionChange(editor: vscode.TextEditor) {
   if (!skipNextAutoPositionSaveByCommand) {
-    const editor = changeEvent.textEditor;
-
     savedSelection = new vscode.Selection(editor.selection.anchor, editor.selection.active);
 
     cursorPositionMode = getCurrentCursorPositionMode(editor);
