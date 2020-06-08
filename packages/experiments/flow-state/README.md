@@ -2,5 +2,5 @@
 
 ## Roadmap
 
-- [ ] ctrl + up/down for quick jumps
-- [ ] ctrl + shift up/down for multicursor (should inversion just like shift + arrow)
+- [ ] support vertical panning when non-word character is selected (the result will retain one character selection)
+- [ ] support Home/End on empty line to swap implicit cursor position logic

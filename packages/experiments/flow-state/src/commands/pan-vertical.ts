@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { cursorPosition, cursorPositionMode, saveCursorPosition } from "../utils/cursor-memory";
 import { CursorPositionMode } from "../utils/cursor-position";
+import { selectLineEnd, selectLineStart } from "../utils/select";
 
 export function activatePanVerticalCommands(context: vscode.ExtensionContext) {
   const panUpCommand = vscode.commands.registerTextEditorCommand("flowState.panUp", (editor) => {
@@ -11,9 +12,9 @@ export function activatePanVerticalCommands(context: vscode.ExtensionContext) {
     }
 
     if (cursorPositionMode === CursorPositionMode.End) {
-      selectLineEnd(editor, candidateLine);
+      selectLineEndNoAutoSave(editor, candidateLine);
     } else if (cursorPositionMode === CursorPositionMode.Home) {
-      selectLineStart(editor, candidateLine);
+      selectLineStartNoAutoSave(editor, candidateLine);
     } else {
       selectNearestWordOrPositionOnLine(editor, candidateLine, cursorPosition.character);
     }
@@ -29,9 +30,9 @@ export function activatePanVerticalCommands(context: vscode.ExtensionContext) {
     }
 
     if (cursorPositionMode === CursorPositionMode.End) {
-      selectLineEnd(editor, candidateLine);
+      selectLineEndNoAutoSave(editor, candidateLine);
     } else if (cursorPositionMode === CursorPositionMode.Home) {
-      selectLineStart(editor, candidateLine);
+      selectLineStartNoAutoSave(editor, candidateLine);
     } else {
       selectNearestWordOrPositionOnLine(editor, candidateLine, cursorPosition.character);
     }
@@ -41,6 +42,7 @@ export function activatePanVerticalCommands(context: vscode.ExtensionContext) {
   context.subscriptions.push(panDownCommand);
 }
 
+// TODO: support the same select regex as horizontal movement
 function selectNearestWordOrPositionOnLine(editor: vscode.TextEditor, line: number, character: number) {
   let candidateWordRange: vscode.Range | undefined;
 
@@ -59,18 +61,10 @@ function selectNearestWordOrPositionOnLine(editor: vscode.TextEditor, line: numb
   }
 }
 
-function selectLineStart(editor: vscode.TextEditor, line: number) {
-  const lineStartPosition = new vscode.Position(line, 0);
-  const lineStartSelection = new vscode.Selection(lineStartPosition, lineStartPosition);
-  editor.selection = lineStartSelection;
-  editor.revealRange(lineStartSelection);
-  saveCursorPosition(line, lineStartPosition.character);
+function selectLineStartNoAutoSave(editor: vscode.TextEditor, line: number) {
+  selectLineStart(editor, line, true);
 }
 
-function selectLineEnd(editor: vscode.TextEditor, line: number) {
-  const lineEndPosition = new vscode.Position(line, editor.document.lineAt(line).range.end.character);
-  const lineEndSelection = new vscode.Selection(lineEndPosition, lineEndPosition);
-  editor.selection = lineEndSelection;
-  editor.revealRange(lineEndSelection);
-  saveCursorPosition(line, lineEndPosition.character);
+function selectLineEndNoAutoSave(editor: vscode.TextEditor, line: number) {
+  selectLineEnd(editor, line, true);
 }

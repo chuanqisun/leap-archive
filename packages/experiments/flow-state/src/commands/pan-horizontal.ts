@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { CursorPositionMode, getCurrentCursorPositionMode } from "../utils/cursor-position";
+import { isCollapsedAtLineEnd, isCollapsedAtLineStart } from "../utils/cursor-position";
 import { collapseToActive, getReversedSelection, selectByRange } from "../utils/select";
 
 export function activatePanHorizontalCommands(context: vscode.ExtensionContext) {
@@ -17,8 +17,9 @@ export function activatePanHorizontalCommands(context: vscode.ExtensionContext) 
 
 async function panWordLeft(editor: vscode.TextEditor) {
   // at line start without selection => use built-in bahavior to select the line end above
-  if (getCurrentCursorPositionMode(editor) === CursorPositionMode.Home) {
+  if (isCollapsedAtLineStart(editor)) {
     console.log("[pan-h] fallback to cursor left");
+
     return vscode.commands.executeCommand("cursorLeft");
   }
 
@@ -59,14 +60,15 @@ async function panWordLeft(editor: vscode.TextEditor) {
 
 async function panWordRight(editor: vscode.TextEditor) {
   // at line end without selection => use built-in bahavior to select the line start below
-  if (getCurrentCursorPositionMode(editor) === CursorPositionMode.End) {
+  if (isCollapsedAtLineEnd(editor)) {
     console.log("[pan-h] fallback to cursor right");
+
     return vscode.commands.executeCommand("cursorRight");
   }
 
   // at line end with selection => collapse to line end
   if (editor.selection.active.character === editor.document.lineAt(editor.selection.active.line).range.end.character) {
-    console.log("[pan-h] collapse to line start");
+    console.log("[pan-h] collapse to line end");
     collapseToActive(editor);
     return;
   }
