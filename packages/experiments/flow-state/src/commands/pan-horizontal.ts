@@ -46,7 +46,7 @@ async function panWordLeft(editor: vscode.TextEditor) {
 
   if (candidateActiveLetter.match(/\w+/)) {
     console.log("[pan-h] select word");
-    const candidateWordRange = editor.document.getWordRangeAtPosition(candidateActive);
+    const candidateWordRange = editor.document.getWordRangeAtPosition(candidateActive, /\w+/);
     if (candidateWordRange) {
       selectByRange(editor, candidateWordRange, true);
     } else {
@@ -89,7 +89,7 @@ async function panWordRight(editor: vscode.TextEditor) {
 
   if (candidateActiveLetter.match(/\w+/)) {
     console.log("[pan-h] select word");
-    const candidateWordRange = editor.document.getWordRangeAtPosition(candidateActive);
+    const candidateWordRange = editor.document.getWordRangeAtPosition(candidateActive, /\w+/);
     if (candidateWordRange) {
       selectByRange(editor, candidateWordRange);
     } else {

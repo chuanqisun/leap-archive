@@ -94,7 +94,7 @@ function selectNearestWordOrPositionOnLine(editor: vscode.TextEditor, idealAncho
 
   if (candidateActiveLetter.match(/\w+/)) {
     console.log("[pan-v] select word");
-    const candidateWordRange = editor.document.getWordRangeAtPosition(candidateActive);
+    const candidateWordRange = editor.document.getWordRangeAtPosition(candidateActive, /\w+/);
     if (candidateWordRange) {
       saveSelection(new vscode.Selection(idealAnchor, idealActive)); // always preserve ideal selection
       selectByRange(editor, candidateWordRange, wasReversed);
