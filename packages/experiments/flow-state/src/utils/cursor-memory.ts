@@ -4,10 +4,11 @@ import { CursorPositionMode, getCurrentCursorPositionMode } from "./cursor-posit
 export let cursorPositionMode: CursorPositionMode = CursorPositionMode.Normal;
 export let savedSelection: vscode.Selection;
 
-let skipNextAutoPositionSaveByCommand = false;
+// events may arrive out of order. The the counter to ensure we can handle multiple events in the queue
+let numberOfEventsToSkip = 0;
 
 export function handleCusorPositionChange(editor: vscode.TextEditor) {
-  if (!skipNextAutoPositionSaveByCommand) {
+  if (!numberOfEventsToSkip) {
     savedSelection = new vscode.Selection(editor.selection.anchor, editor.selection.active);
 
     cursorPositionMode = getCurrentCursorPositionMode(editor);
@@ -17,9 +18,9 @@ export function handleCusorPositionChange(editor: vscode.TextEditor) {
     );
   }
 
-  if (skipNextAutoPositionSaveByCommand) {
+  if (numberOfEventsToSkip) {
     console.log(`[cursor mem] skipped auto position save`);
-    skipNextAutoPositionSaveByCommand = false;
+    numberOfEventsToSkip--;
   }
 }
 
@@ -37,6 +38,6 @@ export function saveSelection(selection: vscode.Selection, newCursorPositionMode
 }
 
 export function skipNextAutoSaveCausedByCommand() {
-  skipNextAutoPositionSaveByCommand = true;
+  numberOfEventsToSkip++;
   console.log(`[cursor mem] will skip next position save`);
 }
