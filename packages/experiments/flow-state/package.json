@@ -1,6 +1,11 @@
 {
   "name": "flow-state",
   "displayName": "Flow State",
+  "publisher": "chuanqisun",
+  "author": {
+    "name": "Chuánqí Sun",
+    "email": "git@chuanqisun.com"
+  },
   "description": "Optimize vscode for code editing",
   "version": "0.0.1",
   "engines": {
