@@ -74,6 +74,16 @@
         "key": "right",
         "command": "flowState.panRight",
         "when": "flowState.mode == 'select' && textInputFocus && !suggestWidgetVisible && !editorHasMultipleSelections"
+      },
+      {
+        "key": "ctrl+left",
+        "command": "cursorLeft",
+        "when": "flowState.mode == 'select' && textInputFocus"
+      },
+      {
+        "key": "ctrl+right",
+        "command": "cursorRight",
+        "when": "flowState.mode == 'select' && textInputFocus"
       }
     ]
   },
