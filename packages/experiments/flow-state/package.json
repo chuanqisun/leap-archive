@@ -7,7 +7,7 @@
     "email": "git@chuanqisun.com"
   },
   "description": "A selection first keybindgins",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "engines": {
     "vscode": "^1.45.0"
   },
@@ -83,6 +83,11 @@
       {
         "key": "ctrl+right",
         "command": "cursorRight",
+        "when": "flowState.mode == 'select' && textInputFocus"
+      },
+      {
+        "key": "insert",
+        "command": "cancelSelection",
         "when": "flowState.mode == 'select' && textInputFocus"
       }
     ]
