@@ -1,3 +1,5 @@
+This repo is archived and superseded by [Leap Code](https://github.com/chuanqisun/leap-code)
+
 # Leap Mode
 A better keyboard interface for web developers
 
